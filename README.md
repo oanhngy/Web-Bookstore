@@ -31,3 +31,5 @@
 6. Truy cập http://localhost:5000 để sử dụng
 
 ## 6. HÌNH MINH HỌA
+![Trang chủ] <img width="949" height="300" alt="image" src="https://github.com/user-attachments/assets/2992d907-ccd0-4fdc-a091-85a48a5d3d91" />
+
