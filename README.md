@@ -35,8 +35,7 @@ The application supports both **customer-facing features** (browsing books, shop
 ## 3. Technologies Used
 - **Programming Languages:** C#, HTML, CSS, JavaScript
 - **Framework:** ASP.NET Core MVC
-- **Database:** SQL Server  
-  (Database script included: `dulieuBookstoreDb.sql`)
+- **Database:** SQL Server  (Database script included: `dulieuBookstoreDb.sql`)
 - **Tools & Libraries:** Visual Studio, Entity Framework Core, Bootstrap
 
 ---
@@ -69,34 +68,55 @@ The application supports both **customer-facing features** (browsing books, shop
    dotnet run
  6. Access the application at http://localhost:5001
 
-## 6. HÌNH MINH HỌA
-# Phần Khách hàng
-Trang chủ
+---
+
+## 6. Technical Highlights
+- Developed the application using ASP.NET Core MVC following the Model–View–Controller pattern
+- Implemented role-based authentication and authorization for Admin and User
+- Used Entity Framework Core for database interaction and migrations
+- Applied CRUD operations, searching, and filtering features
+- Designed a clean separation between business logic, data access, and UI
+- Integrated Bootstrap to create a responsive and user-friendly interface
+
+---
+
+## 7. What I Learned
+- Building web applications using ASP.NET Core MVC
+- Working with Entity Framework Core and SQL Server
+- Implementing authentication, authorization, and role management
+- Designing and managing relational databases
+- Structuring scalable and maintainable web projects
+- Understanding real-world workflows of an e-commerce system
+
+
+## 8. Screenshots
+# Customer Section
+Home page
 <img width="1918" height="928" alt="image" src="https://github.com/user-attachments/assets/49be3e57-22b8-4060-b718-2fc5659a55fc" />
 
-Chi tiết sản phẩm (sách)
+Book details
 <img width="1906" height="562" alt="image" src="https://github.com/user-attachments/assets/17f9286c-82dc-4778-bdba-dda67e3c14c5" />
 
-Giỏ hàng
+Cart
 <img width="1919" height="425" alt="image" src="https://github.com/user-attachments/assets/34502d05-29de-43c1-9c6f-084095699bf4" />
 
-# Phần chung
-Đăng nhập
+# Common Features
+Login/Logout
 <img width="1919" height="271" alt="image" src="https://github.com/user-attachments/assets/820f9e5a-68ac-4667-8898-6a7b42f24ff6" />
 
-Đăng ký
+Register
 <img width="1919" height="311" alt="image" src="https://github.com/user-attachments/assets/fc7ba86c-ff4f-4242-8dff-74889fa71deb" />
 
-# Phần Admin
-Dashboard ( báo cáo tổng)
+# Admin Section
+Dashboard (Overview Report)
 <img width="1919" height="420" alt="image" src="https://github.com/user-attachments/assets/e57f5d12-6963-4c95-b6b9-86725167cfb0" />
 
-Quản lý sản phẩm
+Product Management
 <img width="1919" height="700" alt="image" src="https://github.com/user-attachments/assets/3d602230-1cda-409d-8ab6-d617fb8f0953" />
 
-Quản lý đơn hàng
+Cart Management
 <img width="1919" height="768" alt="image" src="https://github.com/user-attachments/assets/17c5e0bd-84c1-4a81-9afb-5872e9742ba2" />
 
-Xem báo cáo doanh thu
+Revenue Report
 <img width="1919" height="708" alt="image" src="https://github.com/user-attachments/assets/9152d49b-c5c4-493c-b82d-29e0d7cb2c2f" />
 
