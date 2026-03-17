@@ -1,0 +1,42 @@
+@model BookstoreWeb.Models.Order
+
+<h2>Your Cart</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.UnitPrice.ToString("C")</td>
+                <td>
+                    <form asp-action="UpdateQuantity" method="get">
+                        <input type="hidden" name="orderDetailId" value="@item.OrderDetailID" />
+                        <input type="number" name="quantity" value="@item.Quantity" min="1" />
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>@((item.Quantity * item.UnitPrice).ToString("C"))</td>
+                <td>
+                    <a asp-action="RemoveFromCart" asp-route-orderDetailId="@item.OrderDetailID">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p><strong>Total: @Model.TotalAmount?.ToString("C")</strong></p>
+
+<form asp-action="Checkout" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit">Checkout</button>
+</form>
