@@ -9,7 +9,7 @@ namespace BookstoreWeb.Models
 
         [Required]
         [DataType(DataType.Password)]
-        public string Passeord {get; set; }
+        public string Password {get; set; }
 
         public bool RememberMe {get; set; } //checkbox
     }

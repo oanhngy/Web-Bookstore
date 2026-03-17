@@ -7,6 +7,6 @@ namespace BookstoreWeb.Models
         public string ImagePath {get; set;} //ảnh lưu ở wwwroot/images
         public bool IsPrimary {get; set;}
         public string ImageType {get; set;} //not neccesary nhưng codebase có dùng -> refactor sau
-        public ProductImage? Product {get; set;}
+        public Product? Product {get; set;}
     }
 }
