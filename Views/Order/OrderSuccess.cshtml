@@ -1,0 +1,12 @@
+@model BookstoreWeb.Models.Order
+
+<h2>Order Placed Successfully!</h2>
+
+<p>Order #@Model.OrderID</p>
+<p>Name: @Model.FullName</p>
+<p>Address: @Model.Address</p>
+<p>Payment Method: @Model.PaymentMethod</p>
+<p><strong>Total: @Model.TotalAmount?.ToString("C")</strong></p>
+
+<a asp-action="ViewOrderStatus">View My Orders</a>
+<a asp-controller="Product" asp-action="Index">Continue Shopping</a>

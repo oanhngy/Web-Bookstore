@@ -1,0 +1,51 @@
+@model List<BookstoreWeb.Models.Order>
+
+<h2>My Orders</h2>
+
+@if (!Model.Any())
+{
+    <p>You have no orders yet.</p>
+    <a asp-controller="Product" asp-action="Index">Start Shopping</a>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div>
+            <p>Order #@order.OrderID — Status: <strong>@order.Status</strong></p>
+            <p>Date: @order.OrderDate?.ToString("dd/MM/yyyy")</p>
+            <p>Total: @order.TotalAmount?.ToString("C")</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in order.OrderDetails)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Only allow cancel if order is not Completed or Cancelled -->
+            @if (order.Status != "Completed" && order.Status != "Cancelled")
+            {
+                <form asp-action="CancelOrder" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="orderId" value="@order.OrderID" />
+                    <button type="submit">Cancel Order</button>
+                </form>
+            }
+        </div>
+        <hr />
+    }
+}
