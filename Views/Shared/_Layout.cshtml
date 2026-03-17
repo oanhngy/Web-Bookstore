@@ -1,0 +1,37 @@
+<!--là khung HTML dùng chung gồm navbar, footer, vùng RenderBody() nội dung từng View nhúng vào-->
+
+<!DOCTYPE html>
+<hmtl>
+<head>
+    <meta charset="utf-8" />
+    <title>Bookstore</title>
+</head>
+
+<body>
+    <!-- minimal Navbar -->
+    <nav>
+        <a asp-controller="Product" asp-action="Index">Homepage</a>
+
+        @if (User.Identity.IsAuthenticated) {
+            <a asp-controller="Cart" asp-action="ViewCart">Cart</a>
+            <a asp-controller="Order" asp-action="ViewOrderStatus">Order</a>
+            <a asp-controller="Account" asp-action="Logout">Logout</a>
+        }
+
+        else {
+            <a asp-controller="Account" asp-action="Login">Login</a>
+            <a asp-controller="Account" asp-action="Register">Register</a>
+        }
+    </nav>
+
+    <hr />
+
+    <!-- Hiển thị thông báo thành công nếu có-->
+    @if (TempData["SuccessMessage"] !=null) {
+        <p>@TempData["SuccessMessage"]</p>
+    }
+
+    <!--Nội dung từng View render ỏ đây -->
+    @RenderBody()
+</body>
+</hmtl>
