@@ -1,0 +1,15 @@
+## Build output
+bin/
+obj/
+
+## User-specific files
+*.user
+*.suo
+.vs/
+
+## Uploaded images (keep folder, ignore content)
+wwwroot/images/*
+!wwwroot/images/.gitkeep
+
+## Environment
+appsettings.Development.json
