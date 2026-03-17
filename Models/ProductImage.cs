@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BookstoreWeb.Models
 {
     public class ProductImage
     {
+        [Key]
         public int ImageID {get; set;} //PK
         public int ProductID {get; set;} //FK to Product
         public string ImagePath {get; set;} //ảnh lưu ở wwwroot/images
