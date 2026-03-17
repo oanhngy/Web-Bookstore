@@ -14,7 +14,10 @@ builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogL
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BookstoreContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BookstoreDb"))
+    options.UseMySql(
+    builder.Configuration.GetConnectionString("BookstoreDb"),
+    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("BookstoreDb"))
+    )
            .EnableSensitiveDataLogging()
            .LogTo(Console.WriteLine, LogLevel.Information));
 

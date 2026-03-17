@@ -38,7 +38,7 @@ namespace BookstoreWeb.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer("BookstoreDb")
+                    .UseMySql("BookstoreDb", ServerVersion.AutoDetect("BookstoreDb"))
                     .LogTo(Console.WriteLine, LogLevel.Information)
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors();
