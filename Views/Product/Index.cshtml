@@ -1,0 +1,31 @@
+@model X.PagedList.IPagedList<BookstoreWeb.Models.Product>
+@using X.PagedList.Mvc.Core
+
+<h2>Books</h2>
+
+<!-- Search & Filter form -->
+<form method="get" asp-action="Index">
+    <input type="text" name="searchString" value="@ViewBag.SearchString" placeholder="Search books..." />
+    <button type="submit">Search</button>
+</form>
+
+<!-- Product list -->
+@foreach (var product in Model)
+{
+    <div>
+        <h4>@product.Name</h4>
+        <p>Author: @product.Author</p>
+        <p>Category: @product.Category?.Name</p>
+        <p>Price: @product.Price.ToString("C")</p>
+        <a asp-action="Details" asp-route-id="@product.ProductID">View Details</a>
+    </div>
+    <hr />
+}
+
+<!-- Pagination -->
+@Html.PagedListPager(Model, page => Url.Action("Index", new {
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    searchString = ViewBag.SearchString,
+    category = ViewBag.Category
+}))

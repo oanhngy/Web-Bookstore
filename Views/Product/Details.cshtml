@@ -1,0 +1,26 @@
+@model BookstoreWeb.Models.Product
+
+<h2>@Model.Name</h2>
+
+<p>Author: @Model.Author</p>
+<p>Category: @Model.Category?.Name</p>
+<p>Price: @Model.Price.ToString("C")</p>
+<p>Description: @Model.Description</p>
+
+<!-- Product images -->
+@if (Model.ProductImages != null && Model.ProductImages.Any())
+{
+    @foreach (var image in Model.ProductImages)
+    {
+        <img src="~/images/@image.ImagePath" alt="@Model.Name" width="150" />
+    }
+}
+
+<!-- Add to cart form -->
+<form asp-controller="Cart" asp-action="AddToCart" method="get">
+    <input type="hidden" name="productId" value="@Model.ProductID" />
+    <input type="number" name="quantity" value="1" min="1" />
+    <button type="submit">Add to Cart</button>
+</form>
+
+<a asp-action="Index">Back to list</a>
