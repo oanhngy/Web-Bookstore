@@ -1,0 +1,16 @@
+using System.ComponentModel.DataAnnotations;
+namespace BookstoreWeb.Models
+{
+    public class LoginViewModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email {get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Passeord {get; set; }
+
+        public bool RememberMe {get; set; } //checkbox
+    }
+}
