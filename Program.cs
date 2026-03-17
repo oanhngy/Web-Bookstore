@@ -16,7 +16,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BookstoreContext>(options =>
     options.UseMySql(
     builder.Configuration.GetConnectionString("BookstoreDb"),
-    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("BookstoreDb"))
+    new MySqlServerVersion(new Version(8, 0, 0))
     )
            .EnableSensitiveDataLogging()
            .LogTo(Console.WriteLine, LogLevel.Information));
