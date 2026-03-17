@@ -66,7 +66,7 @@ The application supports both **customer-facing features** (browsing books, shop
 5. Run the project using:
    ```bash
    dotnet run
- 6. Access the application at http://localhost:5001
+ 6. Access the application at https://localhost:7001
 
 ---
 

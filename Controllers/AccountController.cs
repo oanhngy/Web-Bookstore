@@ -69,7 +69,7 @@ namespace BookstoreWeb.Controllers
 
                     if (await _userManager.IsInRoleAsync(user, "Admin"))
                     {
-                        return Redirect("https://localhost:5001/Admin/Dashboard");
+                        return Redirect("https://localhost:7001/Admin/Dashboard");
                     }
                     return RedirectToAction("Index", "Product");
                 }

@@ -42,7 +42,7 @@ General behavior:
 ## Commands
 
 ```bash
-dotnet run                              # Run the app (https://localhost:5001)
+dotnet run                              # Run the app (https://localhost:7001)
 dotnet build                            # Build
 dotnet ef migrations add <Name>         # Add EF migration
 dotnet ef database update               # Apply migrations to DB
@@ -92,7 +92,7 @@ The shopping cart is **not a separate entity** — it is an `Order` with `Status
 | `AdminController` | Admin CRUD for products/orders and revenue API — requires `[Authorize(Roles = "Admin")]` |
 
 ### Roles
-- **Admin** — `AdminController` is fully protected. After login, admins redirect to `https://localhost:5001/Admin/Dashboard`.
+- **Admin** — `AdminController` is fully protected. After login, admins redirect to `https://localhost:7001/Admin/Dashboard`.
 - **Customer** — assigned automatically on registration.
 
 ### Default Route
