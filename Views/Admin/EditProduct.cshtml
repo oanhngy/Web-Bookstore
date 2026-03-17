@@ -1,0 +1,48 @@
+@model BookstoreWeb.Models.Product
+
+<h2>Edit Product</h2>
+
+<form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input asp-for="ProductID" type="hidden" />
+
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" required />
+    </div>
+    <div>
+        <label>Author</label>
+        <input asp-for="Author" />
+    </div>
+    <div>
+        <label>Description</label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <div>
+        <label>Price</label>
+        <input asp-for="Price" type="number" step="0.01" required />
+    </div>
+    <div>
+        <label>Category</label>
+        <select asp-for="CategoryID" asp-items="ViewBag.Categories"></select>
+    </div>
+
+    <!-- Current images -->
+    @if (Model.ProductImages != null && Model.ProductImages.Any())
+    {
+        <h4>Current Images</h4>
+        @foreach (var image in Model.ProductImages)
+        {
+            <img src="~/images/@image.ImagePath" width="100" />
+        }
+    }
+
+    <div>
+        <label>Upload New Images</label>
+        <input type="file" name="ImageFiles" multiple />
+    </div>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<a asp-action="ProductList">Back to list</a>

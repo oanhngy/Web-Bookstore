@@ -1,0 +1,35 @@
+ViewBag.TotalProducts
+ViewBag.NewOrders
+ViewBag.TodayRevenue
+ViewBag.RecentOtders
+
+<h2>Admin Dashboard</h2>
+
+<p>Total Products: @ViewBag.TotalProducts</p>
+<p>New orders today: @ViewBag.NewOrders</p>
+<p>Today Revenue: @string.Format("{0:C}", ViewBag.TodayRevenue)</p>
+
+<h4>Recent Orders</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Total</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in ViewBag.RecentOrders)
+        {
+            <tr>
+                <td>@order.OrderID</td>
+                <td>@order.TotalAmount</td>
+                <td>@order.OrderDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="ProductList">Manage Products</a> |
+<a asp-action="Index">Manage Orders</a> |
+<a asp-action="ViewRevenue">Revenue Report</a>

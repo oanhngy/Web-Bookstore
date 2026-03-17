@@ -1,0 +1,35 @@
+<h2>Revenue Report</h2>
+
+<select id="timeFrame">
+    <option value="day">By Day</option>
+    <option value="week"> By Week</option>
+    <option value="month">By Month</option>
+    <option value="year">By Year</option>
+</select>
+
+<canvas id="revenueChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    //tạo biểu đồ rỗng 1st
+    const ctx=document.getElementById('revenueChart').getContext('2d');
+    const chart= new Chart (ctx, {
+        type:'bar',
+        data: {labels: [], datasets: [{label: 'Revenue', data: [] }] }
+    });
+
+    //gọi API lấy data đưa vô chart
+    function loadChart(timeFrame) {
+        fetch ('Admin/GetRevenueData?timeFrame=${timeFrame}')
+            .then(res=>res.json())
+            .then(data=> {
+                chart.data.labels=data.map(d=>d.label);
+                chart.data.datasets[0].data=data,map(d=>d.totalRevenue);
+                chart.update();
+            });
+    }
+
+    //default load, xử lý đổi timeframe
+    loadChart('day');
+    document.getElementById('timeFrame').addEventListener('change', e=> loadChart(e.target.value));
+</script>
