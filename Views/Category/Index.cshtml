@@ -1,0 +1,33 @@
+@model List<BookstoreWeb.Models.Category>
+
+<h2>Danh sách Category</h2>
+
+<a asp-action="AddCategory">+ Add Category</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- hiển thị all category -->
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.CategoryID</td>
+                <td>@category.Name</td>
+                <td>
+                    <a asp-action="EditCategory" asp-route-id="@category.CategoryID">Edit</a>
+
+                    <form asp-action="DeleteCategory" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@category.CategoryID" />
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
