@@ -1,26 +1,73 @@
 @model BookstoreWeb.Models.Product
 
-<h2>@Model.Name</h2>
+<div class="row g-4">
 
-<p>Author: @Model.Author</p>
-<p>Category: @Model.Category?.Name</p>
-<p>Price: @Model.Price.ToString("C")</p>
-<p>Description: @Model.Description</p>
+    <!-- Cột trái: ảnh sản phẩm -->
+    <div class="col-md-4">
+        @{
+            var primaryImage = Model.ProductImages?
+                .FirstOrDefault(img => img.IsPrimary == true && img.ImageType == "main");
+        }
+        @if (primaryImage != null)
+        {
+            <!-- Ảnh chính của sản phẩm -->
+            <img src="~/images/@primaryImage.ImagePath"
+                 class="img-fluid rounded shadow-sm w-100"
+                 style="object-fit: cover; aspect-ratio: 1/1;"
+                 alt="@Model.Name" />
+        }
+        else
+        {
+            <!-- Placeholder nếu không có ảnh -->
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-center"
+                 style="aspect-ratio: 1/1;">
+                <i class="bi bi-book text-white" style="font-size: 4rem"></i>
+            </div>
+        }
 
-<!-- Product images -->
-@if (Model.ProductImages != null && Model.ProductImages.Any())
-{
-    @foreach (var image in Model.ProductImages)
-    {
-        <img src="~/images/@image.ImagePath" alt="@Model.Name" width="150" />
-    }
-}
+        <!-- Ảnh phụ nếu có nhiều hơn 1 ảnh -->
+        @if (Model.ProductImages != null && Model.ProductImages.Count > 1)
+        {
+            <div class="d-flex gap-2 mt-2 flex-wrap">
+                @foreach (var image in Model.ProductImages)
+                {
+                    <img src="~/images/@image.ImagePath"
+                         class="rounded border"
+                         style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+                         alt="@Model.Name" />
+                }
+            </div>
+        }
+    </div>
 
-<!-- Add to cart form -->
-<form asp-controller="Cart" asp-action="AddToCart" method="get">
-    <input type="hidden" name="productId" value="@Model.ProductID" />
-    <input type="number" name="quantity" value="1" min="1" />
-    <button type="submit">Add to Cart</button>
-</form>
+    <!-- Cột phải: thông tin sản phẩm -->
+    <div class="col-md-8">
+        <h2 class="fw-bold mb-2">@Model.Name</h2>
 
-<a asp-action="Index">Back to list</a>
+        <p class="text-muted mb-1">
+            <i class="bi bi-person me-1"></i>@Model.Author
+        </p>
+        <p class="text-muted mb-3">
+            <i class="bi bi-tag me-1"></i>@Model.Category?.Name
+        </p>
+
+        <h3 class="text-danger fw-bold mb-3">@Model.Price.ToString("C")</h3>
+
+        <p class="mb-4">@Model.Description</p>
+
+        <!-- Form thêm vào giỏ hàng -->
+        <form asp-controller="Cart" asp-action="AddToCart" method="get" class="d-flex gap-3 align-items-center">
+            <input type="hidden" name="productId" value="@Model.ProductID" />
+            <input type="number" name="quantity" value="1" min="1"
+                   class="form-control" style="width: 90px" />
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+            </button>
+        </form>
+
+        <a asp-action="Index" class="btn btn-link text-muted mt-3 ps-0">
+            <i class="bi bi-arrow-left me-1"></i>Back to list
+        </a>
+    </div>
+
+</div>

@@ -1,60 +1,103 @@
 @model BookstoreWeb.Models.Product
 
-<h2>Edit Product</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edit Product</h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Dashboard" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-speedometer2 me-1"></i>Dashboard
+        </a>
+        <a asp-action="ProductList" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i>Product List
+        </a>
+    </div>
+</div>
 
-<form asp-action="EditProduct" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-    <input asp-for="ProductID" type="hidden" />
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+        <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input asp-for="ProductID" type="hidden" />
 
-    <div>
-        <label>Name</label>
-        <input asp-for="Name" required />
-    </div>
-    <div>
-        <label>Author</label>
-        <input asp-for="Author" />
-    </div>
-    <div>
-        <label>Description</label>
-        <textarea asp-for="Description"></textarea>
-    </div>
-    <div>
-        <label>Price</label>
-        <input asp-for="Price" type="number" step="0.01" required />
-    </div>
-    <div>
-        <label>Category</label>
-        <select asp-for="CategoryID" asp-items="ViewBag.Categories"></select>
-    </div>
-
-    <!-- Current images + radio button chọn primary -->
-    @if (Model.ProductImages != null && Model.ProductImages.Any())
-    {
-        <h4>Current Images</h4>
-        @foreach (var image in Model.ProductImages)
-        {
-            <!-- radio button mang ImageID làm value -->
-            <div>
-                <img src="~/images/@image.ImagePath" width="100" />
-                <input type="radio" 
-                    name="primaryImageID" 
-                    value="@image.ImageID" 
-                    @(image.IsPrimary ? "checked": "") />
-                <label>Primary</label>
-
-                <!-- checkbox xóa -->
-                <input type="checkbox" name="deleteImageIds" value="@image.ImageID" />
-                <label>Delete</label>
+            <!-- Tên sách -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Name</label>
+                <input asp-for="Name" class="form-control" required />
             </div>
-        }
-    }
 
-    <div>
-        <label>Upload New Images</label>
-        <input type="file" name="ImageFiles" multiple />
+            <!-- Tác giả -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Author</label>
+                <input asp-for="Author" class="form-control" />
+            </div>
+
+            <!-- Mô tả -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+
+            <!-- Giá -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Price</label>
+                <input asp-for="Price" type="number" step="0.01" class="form-control" required />
+            </div>
+
+            <!-- Danh mục -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Category</label>
+                <select asp-for="CategoryID" asp-items="ViewBag.Categories" class="form-select"></select>
+            </div>
+
+            <!-- Ảnh hiện tại với radio chọn primary và checkbox xóa -->
+            @if (Model.ProductImages != null && Model.ProductImages.Any())
+            {
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Current Images</label>
+                    <p class="text-muted small mb-2">
+                        Select <strong>Primary</strong> to change the main image. Tick <strong>Delete</strong> to remove an image.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach (var image in Model.ProductImages)
+                        {
+                            <!-- Card cho từng ảnh hiện có -->
+                            <div class="border rounded p-2 text-center" style="width: 140px">
+                                <img src="~/images/@image.ImagePath"
+                                     style="width: 120px; height: 120px; object-fit: cover;"
+                                     class="rounded mb-2" />
+
+                                <!-- Radio chọn primary -->
+                                <div class="form-check d-flex align-items-center gap-1 justify-content-center mb-1">
+                                    <input type="radio"
+                                           name="primaryImageID"
+                                           value="@image.ImageID"
+                                           class="form-check-input mt-0"
+                                           @(image.IsPrimary ? "checked" : "") />
+                                    <label class="form-check-label text-success small fw-semibold">Primary</label>
+                                </div>
+
+                                <!-- Checkbox xóa ảnh -->
+                                <div class="form-check d-flex align-items-center gap-1 justify-content-center">
+                                    <input type="checkbox"
+                                           name="deleteImageIds"
+                                           value="@image.ImageID"
+                                           class="form-check-input mt-0" />
+                                    <label class="form-check-label text-danger small">Delete</label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Upload ảnh mới -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Upload New Images</label>
+                <input type="file" name="ImageFiles" multiple class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-check-lg me-2"></i>Save Changes
+            </button>
+        </form>
     </div>
-
-    <button type="submit">Save Changes</button>
-</form>
-
-<a asp-action="ProductList">Back to list</a>
+</div>
