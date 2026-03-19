@@ -27,13 +27,25 @@
         <select asp-for="CategoryID" asp-items="ViewBag.Categories"></select>
     </div>
 
-    <!-- Current images -->
+    <!-- Current images + radio button chọn primary -->
     @if (Model.ProductImages != null && Model.ProductImages.Any())
     {
         <h4>Current Images</h4>
         @foreach (var image in Model.ProductImages)
         {
-            <img src="~/images/@image.ImagePath" width="100" />
+            <!-- radio button mang ImageID làm value -->
+            <div>
+                <img src="~/images/@image.ImagePath" width="100" />
+                <input type="radio" 
+                    name="primaryImageID" 
+                    value="@image.ImageID" 
+                    @(image.IsPrimary ? "checked": "") />
+                <label>Primary</label>
+
+                <!-- checkbox xóa -->
+                <input type="checkbox" name="deleteImageIds" value="@image.ImageID" />
+                <label>Delete</label>
+            </div>
         }
     }
 

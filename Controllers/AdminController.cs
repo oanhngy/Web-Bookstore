@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Net.NetworkInformation;
 using System.Reflection;
 
 
@@ -152,7 +153,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditProduct([Bind("ProductID, Name, Description, CategoryID, Price, Author")] Product product, List<IFormFile> ImageFiles)
+    public IActionResult EditProduct([Bind("ProductID, Name, Description, CategoryID, Price, Author")] Product product, List<IFormFile> ImageFiles, int primaryImageId=0, List<int> deleteImageIds=null)
     {
         ModelState.Remove("Category");
 
@@ -160,6 +161,45 @@ public class AdminController : Controller
         {
             _context.Products.Update(product);
             _context.SaveChanges();
+
+            //update IsPrimary cho all ảnh
+            if(primaryImageId>0)
+            {
+                //lấy all ảnh
+                var allImages= _context.ProductImages
+                    .Where(pi=> pi.ProductID==product.ProductID)
+                    .ToList();
+
+                //duyệt từng ảnh, đc chọn =primary
+                foreach(var img in allImages)
+                {
+                    img.IsPrimary=(img.ImageID==primaryImageId);
+                }
+
+                //xóa ảnh
+                if(deleteImageIds != null && deleteImageIds.Count>0)
+                {
+                    //lấy ảnh cần xóa từ db
+                    var imagesToDelete= _context.ProductImages
+                    .Where(pi=> deleteImageIds.Contains(pi.ImageID))
+                    .ToList();
+
+                    foreach(var img in imagesToDelete)
+                    {
+                        //1st xóa vật lý wwwroot/images
+                        var filePath=Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", img.ImagePath);
+                        if(System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+
+                        //2nd xóa trong db
+                        _context.ProductImages.Remove(img);
+                    }
+                }
+                //
+                _context.SaveChanges();
+            }
 
             if (ImageFiles != null && ImageFiles.Count > 0)
             {
