@@ -36,7 +36,8 @@ namespace BookstoreWeb.Controllers
                     UserID = userId,
                     OrderDate = DateTime.Now,
                     Status = "New",
-                    TotalAmount = 0
+                    TotalAmount = 0,
+                    OrderDetails=new List<OrderDetail>()
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();

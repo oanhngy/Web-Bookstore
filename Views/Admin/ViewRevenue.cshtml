@@ -20,11 +20,11 @@
 
     //gọi API lấy data đưa vô chart
     function loadChart(timeFrame) {
-        fetch ('Admin/GetRevenueData?timeFrame=${timeFrame}')
+        fetch (`/Admin/GetRevenueData?timeFrame=${timeFrame}`)
             .then(res=>res.json())
             .then(data=> {
                 chart.data.labels=data.map(d=>d.label);
-                chart.data.datasets[0].data=data,map(d=>d.totalRevenue);
+                chart.data.datasets[0].data=data.map(d=>d.totalRevenue);
                 chart.update();
             });
     }
