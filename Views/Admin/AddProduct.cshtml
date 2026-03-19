@@ -27,7 +27,26 @@
     </div>
     <div>
         <label>Images</label>
-        <input type="file" name="ImageFiles" multiple />
+        <!-- Hàng ảnh 1: radio value =0, default được chọn -->
+        <div>
+            <input type="radio" name="primaryIndex" value="0" checked/>
+            <label>Primary</label>
+            <input type="file" name="ImageFiles" />
+        </div>
+
+        <!-- Hàng 2 -->
+        <div>
+            <input type="radio" name="primaryIndex" value="0" checked/>
+            <label>Primary</label>
+            <input type="file" name="ImageFiles" />
+        </div>
+
+        <!-- Hàng 3 -->
+        <div>
+            <input type="radio" name="primaryIndex" value="0" checked/>
+            <label>Primary</label>
+            <input type="file" name="ImageFiles" />
+        </div>
     </div>
 
     <button type="submit">Add Product</button>

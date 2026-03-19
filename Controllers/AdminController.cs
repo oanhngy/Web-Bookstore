@@ -75,7 +75,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddProduct([Bind("ProductID, Name, Description, CategoryID, Price, Author")] Product product, List<IFormFile> ImageFiles)
+    public IActionResult AddProduct([Bind("ProductID, Name, Description, CategoryID, Price, Author")] Product product, List<IFormFile> ImageFiles, int primaryIndex=0)
     {
         ModelState.Remove("Category");
 
@@ -86,30 +86,30 @@ public class AdminController : Controller
 
             if (ImageFiles != null && ImageFiles.Count > 0)
             {
-                foreach (var imageFile in ImageFiles)
+                //duyệt từng file đúng index
+                for(int i=0; i< ImageFiles.Count; i++)
                 {
-                    if (imageFile != null && imageFile.Length > 0)
+                    var imageFile=ImageFiles[i];
+
+                    if(imageFile==null || imageFile.Length==0) continue; //skip nếu file rỗng, vẫn giữ index
+                    
+                    //lưu file vào thư mục
+                    var fileName = Path.GetFileName(imageFile.FileName);
+                    var imagePath=Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    using(var stream=new FileStream(imagePath, FileMode.Create))
                     {
-                        var fileName = Path.GetFileName(imageFile.FileName);
-                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-
-                        using (var stream = new FileStream(imagePath, FileMode.Create))
-                        {
-                            imageFile.CopyTo(stream);
-                        }
-
-                        var relativePath = fileName;
-
-                        var productImage = new ProductImage
-                        {
-                            ProductID = product.ProductID,
-                            ImagePath = relativePath,
-                            IsPrimary = true,
-                            ImageType = "main"
-                        };
-
-                        _context.ProductImages.Add(productImage);
+                        imageFile.CopyTo(stream);
                     }
+
+                    //lưu db
+                    var productImage=new ProductImage
+                    {
+                        ProductID=product.ProductID,
+                        ImagePath=fileName,
+                        IsPrimary=(i==primaryIndex),
+                        ImageType="main"
+                    };
+                    _context.ProductImages.Add(productImage);
                 }
                 _context.SaveChanges();
             }
