@@ -17,6 +17,7 @@ For each task, first explain:
     - why are we doing this
     - what options exist
     - trade-offs of each option
+    - what line anf file should I check
 After each step, ask for my opinion or confirmation before moving on, show how to commit to github and what should in the comment
 
 Code changes:
@@ -34,6 +35,7 @@ General behavior:
 - Help me understand how to think about the problem, not only how to solve it
 
 ## Coding rules
+- Every block of logic must have a comment above explaining what it dose (not how)
 - Follow clean code practices whenever possible, every function need comment
 - Keep code simple, readable and easy to understand
 - Prefer clear naming over short or clever code
